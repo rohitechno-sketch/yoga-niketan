@@ -52,6 +52,15 @@ function initWhatsappButtons() {
   const buttons = document.querySelectorAll("[data-whatsapp-button]");
   if (!buttons.length) return;
 
+  if (SITE_SETTINGS.whatsappNumber === "REPLACE_WITH_NUMBER") {
+    // The owner hasn't set a real WhatsApp number yet — leave the
+    // buttons inert instead of linking to an invalid destination.
+    console.warn(
+      "Yoga Niketan: set SITE_SETTINGS.whatsappNumber in js/script.js to enable the WhatsApp buttons."
+    );
+    return;
+  }
+
   const url = `https://wa.me/${SITE_SETTINGS.whatsappNumber}?text=${encodeURIComponent(
     SITE_SETTINGS.whatsappMessage
   )}`;
